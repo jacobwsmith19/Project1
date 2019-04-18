@@ -1,0 +1,23 @@
+.card-body a {
+    word-break: break-all;
+}
+
+.articleHeadline {
+    line-height: 1.5;
+}
+
+#article-title {
+    font-size: 16px;
+}
+
+#article-byline, #article-section, #article-date {
+    font-size: 12px;
+}
+
+.jumbotron {
+    background-color: rgba(243, 94, 26, 0.747); 
+    color: rgb(213, 250, 3);
+    font-family: 'Sue Ellen Francisco', cursive;
+    font-size: 90px;
+    
+}

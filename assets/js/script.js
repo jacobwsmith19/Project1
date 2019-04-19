@@ -45,12 +45,61 @@ $(document).ready(function() {
           console.log("Right now, the temperature is " + response.main.temp + "F");
           console.log("The minimum for today is " + response.main.temp_min + "F and the maximum is " + response.main.temp_max + "F");
           console.log("Humidity is: " + response.main.humidity + "%");
-          console.log("Be prepared for: " + response.weather[0].main);
+          
+          var weatherForecast = response.weather[0].main.toLowerCase(); 
+
+          if (weatherForecast === "clear") {
+            console.log("Be prepared for: " + weatherForecast + " weather.");
+          } else {
+            console.log("Be prepared for: " + weatherForecast);
+          }
+
     
         })
     }
 
+    $("button").on("click", function(){
+
+      event.preventDefault(event);
+
+      var city = $("input").val().toLowerCase();
+
+      queryURL = "https://api.openweathermap.org/data/2.5/weather?appid=166a433c57516f51dfab1f7edaed8413&units=imperial&q="+city;
+      console.log(queryURL);
+
+      $.ajax({
+        url: queryURL,
+        method: "GET"
+      }).then(function(response){
+
+        var sunrise = moment.unix(response.sys.sunrise).format("hh:mm A");
+        var sunset = moment.unix(response.sys.sunset).format("hh:mm A")
     
+        console.log(sunrise);
+        console.log(sunset);
+
+        var firstChar = city.charAt(city[0]).toUpperCase();
+        newCity = city.replace(city[0], firstChar);
+
+        console.log("You're in " + newCity + ", " + response.sys.country);
+        console.log("Today, the sun will rise at " + sunrise + " and set at " + sunset);
+        console.log("Wind speed is " + response.wind.speed + "mph");
+        console.log("Visibility is " + response.visibility + " meters");
+        console.log("Right now, the temperature is " + response.main.temp + "F");
+        console.log("The minimum for today is " + response.main.temp_min + "F and the maximum is " + response.main.temp_max + "F");
+        console.log("Humidity is: " + response.main.humidity + "%");
+
+        var weatherForecast = response.weather[0].main.toLowerCase(); 
+
+        if (weatherForecast === "clear") {
+          console.log("Be prepared for: " + weatherForecast + " weather.");
+        } else {
+          console.log("Be prepared for: " + weatherForecast);
+        }
+        
+      })
+      
+    })
 
     
     

@@ -1,7 +1,9 @@
 $(document).ready(function() {
 
-    //Getting Geolocation of user
 
+
+  
+    //Getting Geolocation of user
     var lat;
     var lon;
     var queryURL;

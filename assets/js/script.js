@@ -3,6 +3,7 @@ $(document).ready(function() {
     var lat;
     var lon;
     var queryURL;
+    var currentCity;
     
     //Getting Geolocation of user
     function getUserLocation() {
@@ -65,9 +66,81 @@ $(document).ready(function() {
         `   
   
         $("body").append(weatherText);
+
+        currentCity = response.name;
+        generateNews();
       });
     }
 
    getUserLocation();
+
+   // Generates 3 headlines using the geo location city name as a keyword
+   function generateNews(){
+
+    var newsURL = buildNewsURL();
+    $.ajax({
+      url: newsURL,
+      method: "GET",
+    }).then(updatePage);
+    
+    // Ajax request using current city as a keyword
+    function buildNewsURL() {
+        var newsURL = "https://api.nytimes.com/svc/search/v2/articlesearch.json?";
+        var newsParams = { "api-key": "R1a31F4tBjCUaM2ho8GtIFsrSdtXt30M" };
+        newsParams.q = currentCity;
+      
+        console.log("---------------\nURL: " + newsURL + "\n---------------");
+        console.log(newsURL + $.param(newsParams));
+        
+        return newsURL + $.param(newsParams);
+      }
+    // Generates 3 articles and adds them to the page
+    function updatePage(NYTData) {
+        var numArticles = 3
+        console.log(NYTData);
+      
+        for (var i = 0; i < numArticles; i++) {
+          var article = NYTData.response.docs[i];
+          var articleCount = i + 1;
+          var $articleList = $("<ul>");
+          
+          $articleList.addClass("list-group");
+          $("body").append($articleList);
+      
+          var headline = article.headline;
+          var $articleListItem = $("<li class='list-group-item articleHeadline'>");
+      
+          if (headline && headline.main) {
+            $articleListItem.append(
+              "<span class='label label-primary'>" +
+                "(" + articleCount + ")" +
+                "</span>" +
+                "<span id='article-title'> " +
+                headline.main +
+                "</span>",
+            );
+          }
+      
+          var byline = article.byline;
+      
+          if (byline && byline.original) {
+            $articleListItem.append("<div id='article-byline'>" + byline.original + "</div>");
+          }
+      
+          var pubDate = article.pub_date;
+          if (pubDate) {
+            $articleListItem.append("<div id='article-date'>" + article.pub_date + "</div>");
+          }
+      
+          $articleListItem.append(
+            "<a href='" + article.web_url + "'>" + article.web_url + "</a>",
+          );
+      
+          $articleList.append($articleListItem);
+        } // close for loop
+    } // close updatePage function
+  }; // close generateNews function
+
+
 
 })

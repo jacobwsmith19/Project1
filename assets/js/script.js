@@ -145,6 +145,7 @@ $(document).ready(function() {
         } // close for loop
     } // close updatePage function
   }; // close generateNews function
+
 // signup function
 $("#signup").on("click",function() {
   $('#signupm').modal('show');
@@ -238,5 +239,4 @@ function userPrefs() {
   }); // end of prefernce input function
 };//end of user preferences function
 
-
-})//end of document ready
+});//end of document ready

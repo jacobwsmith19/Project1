@@ -224,7 +224,7 @@ function userPrefs() {
       srchParam.push($('input[name=radio4]:checked').val());
       srchParam.push($('input[name=radio5]:checked').val());
       srchParam.map(function(value,i) {
-          if (value === undefined){console.log(value);
+          if (value !== undefined){console.log(value);
             param1.push(value);
             console.log(srchParam);}
       });

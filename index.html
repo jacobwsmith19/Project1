@@ -23,7 +23,14 @@
                 <form class="form-inline">
                     <input class="form-control mr-sm-2" type="search" placeholder="Type in your city name" aria-label="City search">
                         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search for your city!</button>
-                </form>
+                        
+                        <button type="button" class="btn btn-link" id="signup">Sign Up</button>
+                        
+                        <button type="button" class="btn btn-link" id="login">Log In</button>
+                        
+                        <button type="button" class="btn btn-link" id="signout">Log Out</button>
+                        
+                    </form>
         </nav>
 
      <!--Carousel-->
@@ -92,7 +99,164 @@
         <script src="assets/js/script.js"></script>
         
         
+        <div id="article-section">
             <!-- Articles will appear here -->
         </div>
+        <!--Sign Up Modal-->    
+  <div class="modal" id="signupm" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Sign Up</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <label for="exampleInputEmail1">Email address</label>
+              <input type="email" class="form-control" id="signup-email" aria-describedby="emailHelp" placeholder="Enter email">
+              <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1">Password</label>
+              <input type="password" class="form-control" id="signup-pswd" placeholder="Password">
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" id="submit" data-dismiss="modal" >Submit</button>
+        </div>
+      </div>
+    </div>
+  </div><!--signup modal end-->
+  <!--Login Modal Start-->
+  <div class="modal" id="loginmdl" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Log In</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <label for="exampleInputEmail1">Email address</label>
+              <input type="email" class="form-control" id="signup-email" aria-describedby="emailHelp" placeholder="Enter email">
+              <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1">Password</label>
+              <input type="password" class="form-control" id="signup-pswd" placeholder="Password">
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" id="submit" data-dismiss="modal" >Submit</button>
+        </div>
+      </div>
+    </div>
+  </div><!--signup modal end-->
+  <!--preferences Modal Start-->
+  <div class="modal" id="preferences" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">User Preferences</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <label for="addressinput">Enter an address to use for your first trip of the morning.  We recommend your work address.</label>
+              <input type="email" class="form-control" id="defaultAddress" placeholder="Enter Address">
+            </div>
+            <div class="form-group">
+              <label for="exampleInputEmail1">Enter your Gmail login information to use with the calendar function</label>
+              <input type="email" class="form-control" id="pref-Email" aria-describedby="emailHelp" placeholder="Enter email">
+              <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1">Password</label>
+              <input type="password" class="form-control" id="pref-pswd" placeholder="Password">
+            </div>
+          </form>
+          <div><p>Select catagories to be displayed in the news section of your morning page.</p></div>
+          <div class="form-check form-check-inline">
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="radio1" id="localnews" value="localnews" >
+              <label class="form-check-label" for="exampleRadios1">
+                Local News
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="radio2" id="Worldnews" value="worldnews">
+              <label class="form-check-label" for="exampleRadios2">
+                World News
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="radio3" id="nflfootball" value="NFL">
+              <label class="form-check-label" for="exampleRadios2">
+                NFL Football
+              </label>
+            </div>
+          </div>
+          <div class="form-check form-check-inline">
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="radio4" id="mlb" value="MLB" >
+              <label class="form-check-label" for="exampleRadios1">
+                MLB Baseball
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="radio5" id="Celebs" value="celebgossip">
+              <label class="form-check-label" for="exampleRadios2">
+                Celebrity News
+              </label>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" id="submit2" data-dismiss="modal" >Submit</button>
+        </div>
+      </div>
+    </div>
+  </div><!--preferences modal end-->
+  <script src="https://www.gstatic.com/firebasejs/5.10.0/firebase.js"></script>
+  <script>
+    // Initialize Firebase
+    var config = {
+      apiKey: "AIzaSyCGjT60yhiEnX6lelaTvIcykfauzsoZlyk",
+      authDomain: "authenttesting.firebaseapp.com",
+      databaseURL: "https://authenttesting.firebaseio.com",
+      projectId: "authenttesting",
+      storageBucket: "authenttesting.appspot.com",
+      messagingSenderId: "192055819824"
+    };
+    firebase.initializeApp(config);
+  </script>
+    <!-- Boostrap CDN Script Tags for Javascript -->
+    <!--<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>-->
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>-->
+    <!--<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>-->
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>-->
+    <script src="https://code.jquery.com/jquery-3.4.0.min.js" integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" crossorigin="anonymous"></script>
+    <!--<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>-->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.js"></script>
+        
+    <!-- Script Tag for JQuery -->
+    <!--<script src="https://code.jquery.com/jquery-3.4.0.min.js" integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" crossorigin="anonymous"></script>-->
+
+    <!-- Script Tag for Javascript file -->
+    <script src="assets/js/script.js"></script>
+    <!--<script src="assets/js/auth.js"></script>-->
+        
+       
     </body>
 </html>

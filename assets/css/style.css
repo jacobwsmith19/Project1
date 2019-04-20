@@ -1,0 +1,20 @@
+#weatherSum{
+    color:red;
+}
+#newsSum{
+    color:red;
+}
+#summaryText{
+    text-emphasis: bold;
+    text-align: center;
+}
+.carousel-inner{
+align-content: center;
+}
+#weatherFull{
+    border: solid, 20px, black;
+    text-align:center;
+}
+#newsExpanded{
+    
+}

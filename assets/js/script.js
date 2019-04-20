@@ -57,23 +57,43 @@ $(document).ready(function() {
           <p>Be prepared for: ${weatherForecastResponse}.</p>
           `
         }
-  
-        var weatherText = `
-        <div>
-        <p>You're in ${response.name}, ${response.sys.country}!</p>
-        <p>Today, the sun will rise at ${sunrise} and set at ${sunset}.</p>
-        <p>Wind speed is ${response.wind.speed}mph.</p>
-        <p>Right now, the temperature is ${response.main.temp}F.</p>
-        <p>The minimum for today is ${response.main.temp_min}F and the maximum is ${response.main.temp_max}F.</p>
-        <p>Humidity is: ${response.main.humidity}%</p>
-        ${weatherForecast}
-        </div>
-        `   
-  
-        $("body").append(weatherText);
+   //Detailed view of the weather
+   var weatherText = `
+   <div>
+   <p>You're in ${response.name}, ${response.sys.country}!</p>
+   <p>Today, the sun will rise at ${sunrise} and set at ${sunset}.</p>
+   <p>Wind speed is ${response.wind.speed}mph.</p>
+   <p>Right now, the temperature is ${response.main.temp}F.</p>
+   <p>The minimum for today is ${response.main.temp_min}F and the maximum is ${response.main.temp_max}F.</p>
+   <p>Humidity is: ${response.main.humidity}%</p>
+   ${weatherForecast}
+   </div>
+   `
 
-        currentCity = response.name;
-        generateNews();
+ //Appends weather text to the body
+ $("#weatherFull").html(weatherText);
+
+
+ //City displayed on page 
+ var summaryText =
+   ` <h3>
+   Here's a summary for today in: ${response.name}
+   </h3> `
+ $("#summaryText").html(summaryText)
+
+
+ //Summary text of the weather 
+ var weatherSum = `
+   <div>
+   <p> The temperature is ${response.main.temp}</p>
+   <p>${weatherForecast}
+   </div>`
+ //Replaces the default text and writes the summary to the Carousel
+ $("#weatherSum").html(weatherSum)
+
+ //
+ currentCity = response.name;
+ generateNews();
       });
     }
 
@@ -110,7 +130,7 @@ $(document).ready(function() {
           var $articleList = $("<ul>");
           
           $articleList.addClass("list-group");
-          $("body").append($articleList);
+          $("#newsExpanded").append($articleList);
       
           var headline = article.headline;
           var $articleListItem = $("<li class='list-group-item articleHeadline'>");
@@ -160,33 +180,6 @@ $("#signup").on("click",function() {
   });// end of authentication to firebase  
 });//end of new user function
 });// end of signup click function
-
-//carousel controls
-
-// Activate Carousel
-$("#myCarousel").carousel();
-
-// Enable Carousel Indicators
-$(".item1").click(function () {
-    $("#myCarousel").carousel(0);
-});
-$(".item2").click(function () {
-    $("#myCarousel").carousel(1);
-});
-$(".item3").click(function () {
-    $("#myCarousel").carousel(2);
-});
-$(".item4").click(function () {
-    $("#myCarousel").carousel(3);
-});
-
-// Enable Carousel Controls
-$(".left").click(function () {
-    $("#myCarousel").carousel("prev");
-});
-$(".right").click(function () {
-    $("#myCarousel").carousel("next");
-});
 
 //
 // login function

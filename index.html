@@ -25,7 +25,7 @@
   <nav class="navbar navbar-light bg-light">
     <form class="form-inline">
       <input class="form-control mr-sm-2" type="search" placeholder="Type in your city name" aria-label="City search">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search for your city!</button>
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit" id="search">Search for your city!</button>
 
       <button type="button" class="btn btn-link" id="signup">Sign Up</button>
 
@@ -33,6 +33,9 @@
 
       <button type="button" class="btn btn-link" id="signout">Log Out</button>
 
+      <li class="nav item" id="greeting">
+        
+      </li>      
     </form>
   </nav>
 
@@ -113,6 +116,7 @@
         <div class="modal-body">
           <form>
             <div class="form-group">
+              <h3>Create a new account by adding an email and password below or select the google login button to login with you GMail account.</h3>
               <label for="exampleInputEmail1">Email address</label>
               <input type="email" class="form-control" id="signup-email" aria-describedby="emailHelp"
                 placeholder="Enter email">
@@ -126,7 +130,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" id="submit" data-dismiss="modal">Submit</button>
-
+          <button type="button" class="btn btn-primary" id="glogsu" data-dismiss="modal">Google Login</button>
         </div>
       </div>
     </div>
@@ -145,19 +149,21 @@
         <div class="modal-body">
           <form>
             <div class="form-group">
+              <h3>Login with the account you created on the last visit or select the google login button to use your GMail account.</h3>
               <label for="exampleInputEmail1">Email address</label>
-              <input type="email" class="form-control" id="signup-email" aria-describedby="emailHelp"
+              <input type="email" class="form-control" id="login-email" aria-describedby="emailHelp"
                 placeholder="Enter email">
               <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
             </div>
             <div class="form-group">
               <label for="exampleInputPassword1">Password</label>
-              <input type="password" class="form-control" id="signup-pswd" placeholder="Password">
+              <input type="password" class="form-control" id="login-pswd" placeholder="Password">
             </div>
           </form>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" id="submit" data-dismiss="modal">Submit</button>
+          <button type="button" class="btn btn-primary" id="glogli" data-dismiss="modal">Google Login</button>
         </div>
       </div>
     </div>
@@ -178,18 +184,7 @@
             <div class="form-group">
               <label for="addressinput">Enter an address to use for your first trip of the morning. We recommend your
                 work address.</label>
-              <input type="email" class="form-control" id="defaultAddress" placeholder="Enter Address">
-            </div>
-            <div class="form-group">
-              <label for="exampleInputEmail1">Enter your Gmail login information to use with the calendar
-                function</label>
-              <input type="email" class="form-control" id="pref-Email" aria-describedby="emailHelp"
-                placeholder="Enter email">
-              <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-            </div>
-            <div class="form-group">
-              <label for="exampleInputPassword1">Password</label>
-              <input type="password" class="form-control" id="pref-pswd" placeholder="Password">
+              <input type="email" class="form-control" id="defaultAddress" placeholder="street address city state">
             </div>
           </form>
           <div>
@@ -209,25 +204,31 @@
               </label>
             </div>
             <div class="form-check">
-              <input class="form-check-input" type="radio" name="radio3" id="nflfootball" value="NFL">
+              <input class="form-check-input" type="radio" name="radio3" id="football" value="football">
               <label class="form-check-label" for="exampleRadios2">
-                NFL Football
+                Football
               </label>
             </div>
           </div>
           <div class="form-check form-check-inline">
             <div class="form-check">
-              <input class="form-check-input" type="radio" name="radio4" id="mlb" value="MLB">
+              <input class="form-check-input" type="radio" name="radio4" id="baseball" value="baseball">
               <label class="form-check-label" for="exampleRadios1">
-                MLB Baseball
+               Baseball
               </label>
             </div>
             <div class="form-check">
-              <input class="form-check-input" type="radio" name="radio5" id="Celebs" value="celebgossip">
+              <input class="form-check-input" type="radio" name="radio5" id="entert" value="entertainment">
               <label class="form-check-label" for="exampleRadios2">
-                Celebrity News
+                Entertainment News
               </label>
             </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="radio5" id="life" value="lifestyle">
+                <label class="form-check-label" for="exampleRadios2">
+                  Lifestyle Articles
+                </label>
+              </div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" id="submit2" data-dismiss="modal">Submit</button>
@@ -240,13 +241,13 @@
     <script>
       // Initialize Firebase
       var config = {
-        apiKey: "AIzaSyCGjT60yhiEnX6lelaTvIcykfauzsoZlyk",
-        authDomain: "authenttesting.firebaseapp.com",
-        databaseURL: "https://authenttesting.firebaseio.com",
-        projectId: "authenttesting",
-        storageBucket: "authenttesting.appspot.com",
-        messagingSenderId: "192055819824"
-      };
+    apiKey: "AIzaSyATIOJJqhNqb4jQAody9ZaA9FzQWlswmVc",
+    authDomain: "rise-shine.firebaseapp.com",
+    databaseURL: "https://rise-shine.firebaseio.com",
+    projectId: "rise-shine",
+    storageBucket: "rise-shine.appspot.com",
+    messagingSenderId: "633228333518"
+  };
       firebase.initializeApp(config);
     </script>
     <!-- Boostrap CDN Script Tags for Javascript -->

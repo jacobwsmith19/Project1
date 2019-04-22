@@ -5,6 +5,7 @@ $(document).ready(function() {
     //Global vars
     var database = firebase.database();
     var auth = firebase.auth();
+    var provider = new firebase.auth.GoogleAuthProvider();
     var lat;
     var lon;
     var queryURL;
@@ -28,7 +29,7 @@ $(document).ready(function() {
     }
 
     //The user can also choose to input the city name manually. In this case a new queryURL will be created.
-    $("button").on("click", function(){
+    $("#search").on("click", function(){
       event.preventDefault(event);
 
       var city = $("input").val().toLowerCase();
@@ -165,32 +166,77 @@ $(document).ready(function() {
         } // close for loop
     } // close updatePage function
   }; // close generateNews function
-
+// littoral for greeting in nav bar
+function welcome(name) {
+  return`<h3 class="temp">Welcome</h3>${name}<h3 class="temp">Enjoy your day.</h3>`
+};// end of littoral
 // signup function
 $("#signup").on("click",function() {
   $('#signupm').modal('show');
+  $("#glogsu").on("click",function(event){
+    $('#signupm').modal('hide');
+    console.log("googleclick");
+    auth.signInWithPopup(provider).then(function(result) {
+      var token = result.credential.accessToken;
+      var user = result.user;
+      var name = result.additionalUserInfo.profile.name;
+      console.log(user);
+      console.log(token);
+      userPrefs();
+      document.getElementById(`login`).hidden = true;
+      document.getElementById(`signup`).hidden = true;
+      $("#greeting").html(welcome(name)); 
+    }).catch(function(error) {
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      var email = error.email;
+      var credential = error.credential;
+    }); 
+  }); //end of google login
+
   $("#submit").on("click", function(event) {
       event.preventDefault();    
       var email = $("#signup-email").val().trim();
       var passWrd = $("#signup-pswd").val().trim();
       console.log(email,passWrd);
   auth.createUserWithEmailAndPassword(email,passWrd).then(function(cred) {
-      console.log(cred);// shows user credential returned from firebase
+      console.log(result);// shows user credential returned from firebase
       userPrefs();
+      document.getElementById(`login`).hidden = true;
+      document.getElementById(`signup`).hidden = true; 
+      $("#greeting").html(welcome(email));
   });// end of authentication to firebase  
 });//end of new user function
 });// end of signup click function
 
-//
 // login function
 $("#login").on("click",function(event) {
   $('#loginmdl').modal('show');
+  $("#glogli").on("click",function(event){
+    console.log("googleclick");
+    auth.signInWithPopup(provider).then(function(result) {
+      var token = result.credential.accessToken;
+      var user = result.user;
+      var name = result.additionalUserInfo.profile.name;
+      document.getElementById(`login`).hidden = true;
+      document.getElementById(`signup`).hidden = true;
+      $("#greeting").html(welcome(name));
+    }).catch(function(error) {
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      var email = error.email;
+      var credential = error.credential;
+    }); 
+  }); //end of google login
   $("#submit").on("click",function() {
       event.preventDefault();
       var email = $("#login-email").val().trim();
       var passWrd = $("#login-pswd").val().trim();
       auth.signInWithEmailAndPassword(email,passWrd).then(function(cred){
-          console.log("user logged in");// shows user credential returned from firebase  
+          console.log("user logged in");// shows user credential returned from firebase
+          document.getElementById(`login`).hidden = true;
+          document.getElementById(`signup`).hidden = true;
+          $("#greeting").html(welcome(email));  
       }); // end of login function
 });//end of login function
 });// end of login click function
@@ -199,9 +245,15 @@ $("#login").on("click",function(event) {
 $("#signout").on("click",function() {
   event.preventDefault();
   auth.signOut().then(function() {console.log("user logged out");
+  document.getElementById(`login`).hidden = false;
+  document.getElementById(`signup`).hidden = false;
+  $("#greeting").html("");
+
+
 });    
 
 });// end of signout click function
+
 //user preferences function for signup
 function userPrefs() {
   $("#preferences").modal('show');

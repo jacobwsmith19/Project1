@@ -20,25 +20,21 @@
 </head>
 
 <body>
-
   <!---Navbar-->
   <nav class="navbar navbar-light bg-light">
     <form class="form-inline">
-      <input class="form-control mr-sm-2" type="search" placeholder="Type in your city name" aria-label="City search">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit" id="search">Search for your city!</button>
-
+        <input class="form-control mr-sm-2" type="search" placeholder="Type in your city name" aria-label="City search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit" id="search">Search for your city!</button>
+    </form>
+    <p id="greeting"> </p>
+    <span id="logbuttons">
       <button type="button" class="btn btn-link" id="signup">Sign Up</button>
 
       <button type="button" class="btn btn-link" id="login">Log In</button>
-
-      <button type="button" class="btn btn-link" id="signout">Log Out</button>
-
-      <li class="nav item" id="greeting">
-        
-      </li>      
-    </form>
+      
+      <button type="button" class="btn btn-link" id="signout">Log Out</button> 
+    </span> 
   </nav>
-
   <!--Carousel-->
 
   <div id="summaryText"></div>
@@ -152,17 +148,17 @@
               <h3>Login with the account you created on the last visit or select the google login button to use your GMail account.</h3>
               <label for="exampleInputEmail1">Email address</label>
               <input type="email" class="form-control" id="login-email" aria-describedby="emailHelp"
-                placeholder="Enter email">
+                placeholder="Enter Email  Address">
               <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
             </div>
             <div class="form-group">
               <label for="exampleInputPassword1">Password</label>
-              <input type="password" class="form-control" id="login-pswd" placeholder="Password">
+              <input type="password" class="form-control" id="login-pswd" placeholder="Password at least six characters">
             </div>
           </form>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" id="submit" data-dismiss="modal">Submit</button>
+          <button type="button" class="btn btn-secondary" id="submit1" data-dismiss="modal">Submit</button>
           <button type="button" class="btn btn-primary" id="glogli" data-dismiss="modal">Google Login</button>
         </div>
       </div>

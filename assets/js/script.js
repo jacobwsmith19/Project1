@@ -168,7 +168,7 @@ $(document).ready(function() {
   }; // close generateNews function
 // littoral for greeting in nav bar
 function welcome(name) {
-  return`<h3 class="temp">Welcome</h3>${name}<h3 class="temp">Enjoy your day.</h3>`
+  return`<span class="temp">Welcome   </span>  ${name}  <span class="temp">   Enjoy your day.</span>`
 };// end of littoral
 // signup function
 $("#signup").on("click",function() {
@@ -180,8 +180,6 @@ $("#signup").on("click",function() {
       var token = result.credential.accessToken;
       var user = result.user;
       var name = result.additionalUserInfo.profile.name;
-      console.log(user);
-      console.log(token);
       userPrefs();
       document.getElementById(`login`).hidden = true;
       document.getElementById(`signup`).hidden = true;
@@ -198,9 +196,7 @@ $("#signup").on("click",function() {
       event.preventDefault();    
       var email = $("#signup-email").val().trim();
       var passWrd = $("#signup-pswd").val().trim();
-      console.log(email,passWrd);
-  auth.createUserWithEmailAndPassword(email,passWrd).then(function(cred) {
-      console.log(result);// shows user credential returned from firebase
+    auth.createUserWithEmailAndPassword(email,passWrd).then(function(cred) {
       userPrefs();
       document.getElementById(`login`).hidden = true;
       document.getElementById(`signup`).hidden = true; 
@@ -228,15 +224,14 @@ $("#login").on("click",function(event) {
       var credential = error.credential;
     }); 
   }); //end of google login
-  $("#submit").on("click",function() {
+  $("#submit1").on("click",function() {
       event.preventDefault();
       var email = $("#login-email").val().trim();
       var passWrd = $("#login-pswd").val().trim();
       auth.signInWithEmailAndPassword(email,passWrd).then(function(cred){
-          console.log("user logged in");// shows user credential returned from firebase
-          document.getElementById(`login`).hidden = true;
-          document.getElementById(`signup`).hidden = true;
-          $("#greeting").html(welcome(email));  
+        document.getElementById(`login`).hidden = true;
+        document.getElementById(`signup`).hidden = true;
+        $("#greeting").html(welcome(email));  
       }); // end of login function
 });//end of login function
 });// end of login click function
@@ -248,8 +243,6 @@ $("#signout").on("click",function() {
   document.getElementById(`login`).hidden = false;
   document.getElementById(`signup`).hidden = false;
   $("#greeting").html("");
-
-
 });    
 
 });// end of signout click function
@@ -262,8 +255,6 @@ function userPrefs() {
       var srchParam = [];
       var param1 = [];
       var address = $("#defaultAddress").val();
-      var email = $("#pref-Email").val().trim();
-      var passWrd = $("#pref-pswd").val().trim();
       srchParam.push($('input[name=radio1]:checked').val());
       srchParam.push($('input[name=radio2]:checked').val());
       srchParam.push($('input[name=radio3]:checked').val());
@@ -271,14 +262,10 @@ function userPrefs() {
       srchParam.push($('input[name=radio5]:checked').val());
       srchParam.map(function(value,i) {
           if (value !== undefined){console.log(value);
-            param1.push(value);
-            console.log(srchParam);}
+            param1.push(value);}
       });
-      console.log(param1);
       database.ref().push({
           Address: address,
-          PSWD: passWrd,
-          Email: email,
           NewsParam: param1
       });//end firebase save    
   }); // end of prefernce input function

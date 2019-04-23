@@ -131,6 +131,7 @@ $(document).ready(function() {
           var $articleList = $("<ul>");
           
           $articleList.addClass("list-group");
+          $("#placeholderText").html("")
           $("#newsExpanded").append($articleList);
       
           var headline = article.headline;

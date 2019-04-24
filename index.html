@@ -98,14 +98,8 @@
 <button id="signout_button" style="display: none;">Sign Out</button>
 
 <pre id="content" style="white-space: pre-wrap;"></pre>
-
-<!-- Divs where content will be displayed-->
-
-  <div id="weatherFull"></div>
-  <div id="newsExpanded"></div>
-  <div id="calExpanded"></div>
-
 <!---Collapse-->
+<div id="entireCollapse">
 <div class="panel-group" id="accordion">
   <div class="panel panel-default">
     <div class="panel-heading">
@@ -133,19 +127,27 @@
     <div class="panel-heading">
       <h4 class="panel-title">
         <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">
-        Traffic</a>
+        Expanded Traffic</a>
       </h4>
     </div>
     <div id="collapse3" class="panel-collapse collapse">
       <div id ="detailedTraffic"><span id="placeholderText">Once you have indicated a city or location, detailed traffic will appear here</span></div>
     </div>
   </div>
-</div>
-  
-<!----->
- 
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">
+        Expanded Calendar</a>
+      </h4>
+    </div>
+    <div id="collapse3" class="panel-collapse collapse">
+      <div id ="detailedTraffic"><span id="placeholderText">Once you login, your calendar will appear here</span></div>
+    </div>
   </div>
- 
+</div>
+</div>
+<!----->
 
 
   </div>

@@ -103,7 +103,7 @@ $(document).ready(function () {
 
 
  var weatherImg =
- `<img src="./assets/images/${weatherForecastResponse}.jpg" alt="Weather" width="400px" height="250px";>`
+ `<img src="./assets/images/${weatherForecastResponse}.jpg" alt="Weather" width="100%" height="750px";>`
 
  $("#wimg").html(weatherImg)
     console.log ( weatherForecastResponse)

@@ -55,11 +55,11 @@ $(document).ready(function () {
 
       if (weatherForecastResponse === "clear") {
         weatherForecast = `
-          <p>Be prepared for: ${weatherForecastResponse} weather.</p>
+          <p>Today's skies look ${weatherForecastResponse}</p>
           `
       } else {
         weatherForecast = `
-          <p>Be prepared for: ${weatherForecastResponse}.</p>
+          <p>Be prepared for ${weatherForecastResponse}.</p>
           `
       }
       //Detailed view of the weather
@@ -68,12 +68,13 @@ $(document).ready(function () {
    <p>You're in ${response.name}, ${response.sys.country}!</p>
    <p>Today, the sun will rise at ${sunrise} and set at ${sunset}.</p>
    <p>Wind speed is ${response.wind.speed}mph.</p>
-   <p>Right now, the temperature is ${response.main.temp}F.</p>
-   <p>The minimum for today is ${response.main.temp_min}F and the maximum is ${response.main.temp_max}F.</p>
+   <p>Right now, the temperature is ${response.main.temp} F.</p>
+   <p>The minimum for today is ${response.main.temp_min} F and the maximum is ${response.main.temp_max} F.</p>
    <p>Humidity is: ${response.main.humidity}%</p>
    ${weatherForecast}
    </div>
    `
+  
 
       //Appends weather text to the body
       $("#weatherFull").html(weatherText);
@@ -88,6 +89,7 @@ $(document).ready(function () {
 
 
       //Summary text of the weather 
+      
       var weatherSum = `
    <div>
 
@@ -98,6 +100,13 @@ $(document).ready(function () {
       $("#weatherSum").html(weatherSum)
 
 
+
+
+ var weatherImg =
+ `<img src="./assets/images/${weatherForecastResponse}.jpg" alt="Weather" width="400px" height="250px";>`
+
+ $("#wimg").html(weatherImg)
+    console.log ( weatherForecastResponse)
 
 
       /////////////////////////////////////////NEWS///////////////////////////////////////////////////////////////////////////
@@ -145,7 +154,8 @@ $(document).ready(function () {
         $("#newsExpanded").append($articleList);
         var newsSum = `
           <h7>Here's the most recent headline from the New York Times for your city <h7> 
-          <h2> ${NYTData.response.docs[0].lead_paragraph} </h2>
+          <h2> ${NYTData.response.docs[0].headline.main} </h2>
+          <h3> ${NYTData.response.docs[0].snippet} </h3>
 
           <h7>Click <a href =${NYTData.response.docs[0].web_url}> here</a> for the full article<h7>
           <br>

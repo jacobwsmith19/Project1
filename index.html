@@ -18,7 +18,6 @@
 
   <title>Rise and Shine!</title>
 </head>
-
 <body>
   <!---Navbar-->
   <nav class="navbar navbar-light bg-light">
@@ -50,7 +49,7 @@
         <div class="carousel-item active">
           <img src="./assets/images/clear.jpg" alt="Weather" width="100%">
           <div class="carousel-caption d-none d-md-block">
-            <h5>Weather</h5>
+            <h1>Weather</h1>
             <p id=weatherSum>A summary of local weather will be shown here after you have indicated a city
             </p>
           </div>
@@ -58,21 +57,21 @@
         <div class="carousel-item">
           <img src="./assets/images/clear.jpg" alt="simpleNews" width="100%">
           <div class="carousel-caption d-none d-md-block">
-            <h5>News</h5>
+            <h1>News</h1>
             <p id=newsSum>A summary of local news will be shown here after you have indicated a city</p>
           </div>
         </div>
         <div class="carousel-item">
           <img src="./assets/images/clear.jpg" alt="simpleTraffic" width="100%">
           <div class="carousel-caption d-none d-md-block">
-            <h5>Traffic</h5>
+            <h1>Traffic</h1>
             <p id=trafficSum>A summary of local traffic will be shown here after you have indicated a city</p>
           </div>
         </div>
         <div class="carousel-item">
           <img src="./assets/images/clear.jpg" alt="simpleNews" width="100%">
           <div class="carousel-caption d-none d-md-block">
-            <h5>Calendar</h5>
+            <h5>Traffic</h5>
             <p id=calSum>A summary of local traffic will be shown here after you have indicated a city</p>
           </div>
         </div>
@@ -91,6 +90,7 @@
 
   <br>
   <br>
+
   <!----->
 
   <!--Add buttons to initiate auth sequence and sign out - Ask Halon if we need these-->
@@ -105,8 +105,47 @@
   <div id="newsExpanded"></div>
   <div id="calExpanded"></div>
 
-
-
+<!---Collapse-->
+<div class="panel-group" id="accordion">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
+        Detailed Weather</a>
+      </h4>
+    </div>
+    <div id="collapse1" class="panel-collapse collapse in">
+      <div id="weatherFull">Once you have indicated a city, detailed weather will appear here</div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">
+        More News</a>
+      </h4>
+    </div>
+    <div id="collapse2" class="panel-collapse collapse">
+      <div id="newsExpanded"><span id="placeholderText">Once you have indicated a city, more news articles will appear here</span></div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">
+        Traffic</a>
+      </h4>
+    </div>
+    <div id="collapse3" class="panel-collapse collapse">
+      <div id ="detailedTraffic"><span id="placeholderText">Once you have indicated a city or location, detailed traffic will appear here</span></div>
+    </div>
+  </div>
+</div>
+  
+<!----->
+ 
+  </div>
+ 
 
 
   </div>

@@ -1,9 +1,7 @@
 
-#weatherSum{
-    color:red;
-}
-#newsSum{
-    color:red;
+
+h2{
+ color:red
 }
 #summaryText{
     text-emphasis: bold;
@@ -22,4 +20,7 @@ align-content: center;
 .temp {
     font-size: 25px;
     font-weight: 500;
+}
+.collapse{
+    text-align:center;
 }

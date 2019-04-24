@@ -264,8 +264,13 @@ $("#login").on("click",function(event) {
       passWrd = $("#login-pswd").val().trim();
       auth.signInWithEmailAndPassword(email,passWrd).then(function(cred){
 
-
-      getUserCalendar();
+        console.log("user logged in");// shows user credential returned from firebase
+          document.getElementById(`login`).hidden = true;
+          document.getElementById(`signup`).hidden = true;
+          $("#greeting").html(welcome(email)); 
+          
+          getUserCalendar();
+      }); // end of login function
 });//end of login function
 });// end of login click function
 

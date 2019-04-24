@@ -1,5 +1,4 @@
 
-
 h2{
  color:red
 }
@@ -10,17 +9,14 @@ h2{
 .carousel-inner{
 align-content: center;
 }
-#weatherFull{
-    border: solid, 20px, black;
-    text-align:center;
-}
-#newsExpanded{
-    
-}
+
 .temp {
     font-size: 25px;
     font-weight: 500;
 }
 .collapse{
+    text-align:center;
+}
+#entireCollapse{
     text-align:center;
 }

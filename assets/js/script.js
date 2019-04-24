@@ -125,10 +125,6 @@ $(document).ready(function () {
       var newsURL = "https://api.nytimes.com/svc/search/v2/articlesearch.json?";
       var newsParams = { "api-key": "R1a31F4tBjCUaM2ho8GtIFsrSdtXt30M" };
       newsParams.q = currentCity;
-
-      console.log("---------------\nURL: " + newsURL + "\n---------------");
-      console.log(newsURL + $.param(newsParams));
-
       return newsURL + $.param(newsParams);
     }
     // Generates 3 articles and adds them to the page
@@ -186,7 +182,7 @@ $(document).ready(function () {
         }
 
         $articleListItem.append(
-          "<a href='" + article.web_url + "'>" + article.web_url + "</a>",
+          "<a href='" + article.web_url + "'target='_blank' >" + article.web_url + "</a>",
         );
 
         $articleList.append($articleListItem);

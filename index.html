@@ -26,6 +26,7 @@
         <button class="btn btn-outline-success my-2 my-sm-0" type="submit" id="search">Search for your city!</button>
     </form>
     <p id="greeting"> </p>
+
     <span id="logbuttons">
       <button type="button" class="btn btn-link" id="signup">Sign Up</button>
 
@@ -89,6 +90,21 @@
 
   <br>
   <br>
+
+  <!----->
+
+  <!--Add buttons to initiate auth sequence and sign out - Ask Halon if we need these-->
+<button id="authorize_button" style="display: none;">Authorize</button>
+<button id="signout_button" style="display: none;">Sign Out</button>
+
+<pre id="content" style="white-space: pre-wrap;"></pre>
+
+<!-- Divs where content will be displayed-->
+
+  <div id="weatherFull"></div>
+  <div id="newsExpanded"></div>
+  <div id="calExpanded"></div>
+
 <!---Collapse-->
 <div class="panel-group" id="accordion">
   <div class="panel panel-default">
@@ -129,9 +145,7 @@
 <!----->
  
   </div>
-  
-
-
+ 
 
 
   </div>
@@ -184,7 +198,7 @@
               <h3>Login with the account you created on the last visit or select the google login button to use your GMail account.</h3>
               <label for="exampleInputEmail1">Email address</label>
               <input type="email" class="form-control" id="login-email" aria-describedby="emailHelp"
-                placeholder="Enter Email  Address">
+                placeholder="Enter Email Address">
               <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
             </div>
             <div class="form-group">
@@ -283,25 +297,16 @@
       firebase.initializeApp(config);
     </script>
     <!-- Boostrap CDN Script Tags for Javascript -->
-    <!--<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>-->
-    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>-->
-    <!--<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>-->
-    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>-->
     <script src="https://code.jquery.com/jquery-3.4.0.min.js"
       integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" crossorigin="anonymous"></script>
-    <!--<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>-->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
       integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
       crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.js"></script>
 
-    <!-- Script Tag for JQuery -->
-    <!--<script src="https://code.jquery.com/jquery-3.4.0.min.js" integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" crossorigin="anonymous"></script>-->
-
     <!-- Script Tag for Javascript file -->
     <script src="assets/js/script.js"></script>
-    <!--<script src="assets/js/auth.js"></script>-->
-
+ 
 
 </body>
 

@@ -2,18 +2,15 @@
 <html>
   <head>
     <title>Google Calendar API Quickstart</title>
-    <meta charset="utf-8" />
-    <iframe
-      src="https://calendar.google.com/calendar/embed?src=halon.j.hamilton%40gmail.com&ctz=America%2FChicago"
-      style="border: 0"
-      width="800"
-      height="600"
-      frameborder="0"
-      scrolling="no"
-    ></iframe>
+    <meta charset="utf-8"/>
   </head>
   <body>
     <p>Google Calendar API Quickstart</p>
+
+    <form>
+      <input>
+      <button>Go</button>
+    </form>
 
     <!--Add buttons to initiate auth sequence and sign out-->
     <button id="authorize_button" style="display: none;">Authorize</button>
@@ -21,11 +18,50 @@
 
     <pre id="content" style="white-space: pre-wrap;"></pre>
 
+
+    <!-- Script Tag for JQuery -->
+    <script src="https://code.jquery.com/jquery-3.4.0.min.js" integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" crossorigin="anonymous"></script>
+
     <script type="text/javascript">
+
+    var userEmail;
+    var userInput;
+
+    $("button").on("click", function(event){
+
+      event.preventDefault(event);
+
+      userInput = $("input").val().split("@");
+      userEmail = userInput[0];
+
+      
+      console.log(userEmail);
+
+
+    var iframe = `
+    <iframe
+      src="https://calendar.google.com/calendar/embed?src=${userEmail}%40gmail.com&ctz=America%2FChicago"
+      style="border: 0"
+      width="800"
+      height="600"
+      frameborder="0"
+      scrolling="no"
+    ></iframe>
+
+    `
+
+    console.log(iframe);
+
+    $("body").append(iframe);
+
+
+    })
+
+
       // Client ID and API key from the Developer Console
       var CLIENT_ID =
-        "1000064502284-f8ll8bc4nf11esn4u7lrppagvnvjh94v.apps.googleusercontent.com";
-      var API_KEY = "AIzaSyDLW8pF1wMR4lzHmHddgqST_J7IvihlyNE";
+        "861805811444-ou2fkh3vkq7p5irnnb3nnco9c56m742n.apps.googleusercontent.com";
+      var API_KEY = "AIzaSyB2o7vTO8IbcRCnIcu9LgJFSyV1iPeFZmY ";
 
       // Array of API discovery doc URLs for APIs used by the quickstart
       var DISCOVERY_DOCS = [
@@ -152,12 +188,12 @@
       }
     </script>
 
-    <script
+    <!-- <script
       async
       defer
       src="https://apis.google.com/js/api.js"
       onload="this.onload=function(){};handleClientLoad()"
       onreadystatechange="if (this.readyState === 'complete') this.onload()"
-    ></script>
+    ></script> -->
   </body>
 </html>

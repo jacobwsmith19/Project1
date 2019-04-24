@@ -139,6 +139,8 @@ $(document).ready(function () {
         var article = NYTData.response.docs[i];
         var articleCount = i + 1;
         var $articleList = $("<ul>");
+        var pubDate = NYTData.response.docs[i].pub_date;
+        var formattedDate = moment(pubDate).format('MMM D, YYYY');
 
         $articleList.addClass("list-group");
 
@@ -179,7 +181,7 @@ $(document).ready(function () {
 
         var pubDate = article.pub_date;
         if (pubDate) {
-          $articleListItem.append("<div id='article-date'>" + article.pub_date + "</div>");
+          $articleListItem.append("<div id='article-date'>" + formattedDate + "</div>");
         }
 
         $articleListItem.append(

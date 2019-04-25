@@ -128,15 +128,18 @@ $(document).ready(function () {
       url: newsURL,
       method: "GET",
     }).then(updatePage);
+    console.log(newsURL);
 
     // Ajax request using current city as a keyword
     function buildNewsURL() {
       var newsURL = "https://api.nytimes.com/svc/search/v2/articlesearch.json?";
       var newsParams = { "api-key": "R1a31F4tBjCUaM2ho8GtIFsrSdtXt30M" };
+      var year = moment().format('YYYY');
       newsParams.q = currentCity;
+      newsParams.pub_year = year;
       return newsURL + $.param(newsParams);
     }
-    // Generates 3 articles and adds them to the page
+    // Generates 5 articles and adds them to the page
     function updatePage(NYTData) {
       var numArticles = 5
       console.log(NYTData);
@@ -157,7 +160,7 @@ $(document).ready(function () {
           <h2> ${NYTData.response.docs[0].headline.main} </h2>
           <h3> ${NYTData.response.docs[0].snippet} </h3>
 
-          <h7>Click <a href =${NYTData.response.docs[0].web_url}> here</a> for the full article<h7>
+          <h7>Click <a href =${NYTData.response.docs[0].web_url} target='_blank'> here</a> for the full article<h7>
           <br>
           Or scroll down to see more articles
           `

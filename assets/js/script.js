@@ -10,6 +10,7 @@ $(document).ready(function () {
   var lon;
   var queryURL;
   var currentCity;
+  var userArray =[]; //user login data from google and preferences from firebase
 
   //Getting Geolocation of user
   function getUserLocation() {
@@ -217,12 +218,15 @@ $("#signup").on("click",function() {
       var token = result.credential.accessToken;
       var user = result.user;
       var name = result.additionalUserInfo.profile.name;
+      userArray[0] = result.credential.accessToken;
+      userArray[1] = result.credential.idToken;
+      userArray[2] = result.user.email;
       userPrefs();
       document.getElementById(`login`).hidden = true;
       document.getElementById(`signup`).hidden = true;
       $("#greeting").html(welcome(name)); 
-
-      getUserCalendar();
+      email = userArray[2];
+      getUserCalendar(email);
     }).catch(function(error) {
       var errorCode = error.code;
       var errorMessage = error.message;
@@ -240,8 +244,8 @@ $("#signup").on("click",function() {
       document.getElementById(`login`).hidden = true;
       document.getElementById(`signup`).hidden = true; 
       $("#greeting").html(welcome(email));
-
-      getUserCalendar();
+      userArray[2] = email;
+      getUserCalendar(email);
   });// end of authentication to firebase  
 });//end of new user function
 });// end of signup click function
@@ -255,11 +259,15 @@ $("#login").on("click",function(event) {
       var token = result.credential.accessToken;
       var user = result.user;
       var name = result.additionalUserInfo.profile.name;
+      userArray[0] = result.credential.accessToken;
+      userArray[1] = result.credential.idToken;
+      userArray[2] = result.user.email;
       document.getElementById(`login`).hidden = true;
       document.getElementById(`signup`).hidden = true;
       $("#greeting").html(welcome(name));
-
-      getUserCalendar();
+      email = userArray[2];
+      console.log(email);
+      getUserCalendar(email);
     }).catch(function(error) {
       var errorCode = error.code;
       var errorMessage = error.message;
@@ -272,13 +280,11 @@ $("#login").on("click",function(event) {
       email = $("#login-email").val().trim();
       passWrd = $("#login-pswd").val().trim();
       auth.signInWithEmailAndPassword(email,passWrd).then(function(cred){
-
-        console.log("user logged in");// shows user credential returned from firebase
-          document.getElementById(`login`).hidden = true;
-          document.getElementById(`signup`).hidden = true;
-          $("#greeting").html(welcome(email)); 
-          
-          getUserCalendar();
+        document.getElementById(`login`).hidden = true;
+        document.getElementById(`signup`).hidden = true;
+        $("#greeting").html(welcome(email)); 
+        userArray[2] = email;
+        getUserCalendar(email);
       }); // end of login function
 });//end of login function
 });// end of login click function
@@ -289,6 +295,7 @@ $("#signout").on("click",function() {
   auth.signOut().then(function() {console.log("user logged out");
   document.getElementById(`login`).hidden = false;
   document.getElementById(`signup`).hidden = false;
+  userArray = [];
   $("#greeting").html("");
   $("#calExpanded").empty();
 });    
@@ -304,6 +311,7 @@ function userPrefs() {
 
       var srchParam = [];
       var param1 = [];
+      var defaultCity = $("#city").val();
       var address = $("#defaultAddress").val();
       srchParam.push($('input[name=radio1]:checked').val());
       srchParam.push($('input[name=radio2]:checked').val());
@@ -317,6 +325,7 @@ function userPrefs() {
         }
       });
       database.ref().push({
+        City: defaultCity,
         Address: address,
         NewsParam: param1
       });//end firebase save    
@@ -327,13 +336,13 @@ function userPrefs() {
 //Adding Calendar
 var userEmail;
 var userInput;
-var email;
 
-function getUserCalendar() {
+function getUserCalendar(email) {
 
   userInput = email.split("@");
 
   userEmail = userInput[0];
+  console.log("user",userEmail);
 
     var iframe = `
     <iframe

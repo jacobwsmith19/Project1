@@ -25,6 +25,7 @@
   <nav class="navbar navbar-light bg-light">
     <form class="form-inline">
       <header>Rise and Shine</header>
+
       <input class="form-control mr-sm-2" type="search" placeholder="Type in your city name" aria-label="City search">
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit" id="search">Search for your city!</button>
     </form>
@@ -52,7 +53,7 @@
       <div class="carousel-inner">
         <div class="carousel-item active">
           <span id=wimg><img src="./assets/images/clear.jpg" width="100%" height="750px"></span>
-          <div class="carousel-caption d-none d-md-block">
+
             <h1>Weather</h1>
             <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br>
             <p id=weatherSum>A summary of local weather will be shown here after you have indicated a city
@@ -104,14 +105,6 @@
   <button id="signout_button" style="display: none;">Sign Out</button>
 
   <pre id="content" style="white-space: pre-wrap;"></pre>
-
-  </div>
-
-  <button id="authorize_button" style="display: none;">Authorize</button>
-  <button id="signout_button" style="display: none;">Sign Out</button>
-
-  <pre id="content" style="white-space: pre-wrap;"></pre>
-
   <!---Collapse-->
   <div id="entireCollapse">
     <div class="panel-group" id="accordion">
@@ -142,27 +135,44 @@
         <div class="panel-heading">
           <h4 class="panel-title">
             <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">
-              Expanded Traffic</a>
+              Traffic</a>
           </h4>
         </div>
         <div id="collapse3" class="panel-collapse collapse">
+
           <div id="detailedTraffic"><span id="placeholderText"><iframe src=maps.html width="100%" height="750px"></iframe> </span></div>
+
         </div>
       </div>
       <div class="panel panel-default">
         <div class="panel-heading">
           <h4 class="panel-title">
-            <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">
-              Expanded Calendar</a>
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">
+              Calendar</a>
           </h4>
         </div>
-        <div id="collapse3" class="panel-collapse collapse">
-          <div id="detailedTraffic"><span id="placeholderText">Once you login, your calendar will appear here</span>
-          </div>
+        <div id="collapse4" class="panel-collapse collapse">
+          <div id="detailedTraffic"><span id="placeholderText">Once you have logged in, your calendar will appear
+              here</span></div>
         </div>
       </div>
     </div>
   </div>
+  <!----->
+
+  </div>
+
+<button id="authorize_button" style="display: none;">Authorize</button>
+<button id="signout_button" style="display: none;">Sign Out</button>
+
+
+  </div>
+
+  <button id="authorize_button" style="display: none;">Authorize</button>
+  <button id="signout_button" style="display: none;">Sign Out</button>
+
+  <pre id="content" style="white-space: pre-wrap;"></pre>
+
   <!--Sign Up Modal-->
   <div class="modal" id="signupm" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
@@ -323,7 +333,8 @@
 
     <!-- Script Tag for Javascript file -->
     <script src="assets/js/script.js"></script>
-    <script src="map.js"></script>
+ <script src="map.js"></script>
+
 
 </body>
 <footer>2019</footer>

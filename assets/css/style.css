@@ -1,4 +1,7 @@
 
+header{
+    padding-right:500px;
+}
 h2{
  color:red
 }
@@ -13,9 +16,15 @@ align-content: center;
     font-size: 25px;
     font-weight: 500;
 }
+img{
+    padding-right:50px;
+    padding-left:50px;
+}
 .collapse{
     text-align:center;
 }
 #entireCollapse{
     text-align:center;
+
+
 }

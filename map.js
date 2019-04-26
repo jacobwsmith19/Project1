@@ -2,7 +2,7 @@ var map, infoWindow;
 function initMap() {
   map = new google.maps.Map(document.getElementById("map"), {
     center: { lat: -34.397, lng: 150.644 },
-    zoom: 6
+    zoom: 10
   });
 
   var card = document.getElementById("pac-card");
@@ -106,12 +106,15 @@ function initMap() {
         var pos = {
           lat: position.coords.latitude,
           lng: position.coords.longitude
+          
         };
 
         infoWindow.setPosition(pos);
         infoWindow.setContent("You are here!");
         infoWindow.open(map);
         map.setCenter(pos);
+        $("#trafficSum").html()
+        
       },
       function() {
         handleLocationError(true, infoWindow, map.getCenter());

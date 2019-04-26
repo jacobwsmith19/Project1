@@ -1,5 +1,4 @@
 
-
 h2{
  color:red
 }
@@ -10,14 +9,13 @@ h2{
 .carousel-inner{
 align-content: center;
 }
-#entireCollapse{
-    text-align:center;
-    
-}
 .temp {
     font-size: 25px;
     font-weight: 500;
 }
 .collapse{
+    text-align:center;
+}
+#entireCollapse{
     text-align:center;
 }

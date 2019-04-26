@@ -74,12 +74,12 @@ $(document).ready(function () {
    ${weatherForecast}
    </div>
    `
-  
+
 
       //Appends weather text to the body
       $("#weatherFull").html(weatherText);
 
-      
+
       //City displayed on page 
       var summaryText =
         ` <h3>
@@ -89,7 +89,7 @@ $(document).ready(function () {
 
 
       //Summary text of the weather 
-      
+
       var weatherSum = `
    <div>
 
@@ -100,13 +100,12 @@ $(document).ready(function () {
       $("#weatherSum").html(weatherSum)
 
 
+      var weatherImg =
+        `<img src="./assets/images/${weatherForecastResponse}.jpg" alt="Weather" width="100%" height="750px">`
 
+      $("#wimg").html(weatherImg)
+      console.log(weatherForecastResponse)
 
- var weatherImg =
- `<img src="./assets/images/${weatherForecastResponse}.jpg" alt="Weather" width="100%" height="750px";>`
-
- $("#wimg").html(weatherImg)
-    console.log ( weatherForecastResponse)
 
 
       /////////////////////////////////////////NEWS///////////////////////////////////////////////////////////////////////////
@@ -203,71 +202,71 @@ $(document).ready(function () {
       } // close for loop
     } // close updatePage function
   }; // close generateNews function
-// littoral for greeting in nav bar
-function welcome(name) {
-  return`<span class="temp">Welcome   </span>  ${name}  <span class="temp">   Enjoy your day.</span>`
-};// end of littoral
-// signup function
-$("#signup").on("click",function() {
-  $('#signupm').modal('show');
-  $("#glogsu").on("click",function(event){
-    $('#signupm').modal('hide');
-    console.log("googleclick");
-    auth.signInWithPopup(provider).then(function(result) {
-      var token = result.credential.accessToken;
-      var user = result.user;
-      var name = result.additionalUserInfo.profile.name;
-      userPrefs();
-      document.getElementById(`login`).hidden = true;
-      document.getElementById(`signup`).hidden = true;
-      $("#greeting").html(welcome(name)); 
+  // littoral for greeting in nav bar
+  function welcome(name) {
+    return `<span class="temp">Welcome   </span>  ${name}  <span class="temp">   Enjoy your day.</span>`
+  };// end of littoral
+  // signup function
+  $("#signup").on("click", function () {
+    $('#signupm').modal('show');
+    $("#glogsu").on("click", function (event) {
+      $('#signupm').modal('hide');
+      console.log("googleclick");
+      auth.signInWithPopup(provider).then(function (result) {
+        var token = result.credential.accessToken;
+        var user = result.user;
+        var name = result.additionalUserInfo.profile.name;
+        userPrefs();
+        document.getElementById(`login`).hidden = true;
+        document.getElementById(`signup`).hidden = true;
+        $("#greeting").html(welcome(name));
 
-      getUserCalendar();
-    }).catch(function(error) {
-      var errorCode = error.code;
-      var errorMessage = error.message;
-      var email = error.email;
-      var credential = error.credential;
-    }); 
-  }); //end of google login
+        getUserCalendar();
+      }).catch(function (error) {
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        var email = error.email;
+        var credential = error.credential;
+      });
+    }); //end of google login
 
-  $("#submit").on("click", function(event) {
-      event.preventDefault(event);    
+    $("#submit").on("click", function (event) {
+      event.preventDefault(event);
       email = $("#signup-email").val().trim();
       passWrd = $("#signup-pswd").val().trim();
-    auth.createUserWithEmailAndPassword(email,passWrd).then(function(cred) {
-      userPrefs();
-      document.getElementById(`login`).hidden = true;
-      document.getElementById(`signup`).hidden = true; 
-      $("#greeting").html(welcome(email));
+      auth.createUserWithEmailAndPassword(email, passWrd).then(function (cred) {
+        userPrefs();
+        document.getElementById(`login`).hidden = true;
+        document.getElementById(`signup`).hidden = true;
+        $("#greeting").html(welcome(email));
 
-      getUserCalendar();
-  });// end of authentication to firebase  
-});//end of new user function
-});// end of signup click function
+        getUserCalendar();
+      });// end of authentication to firebase  
+    });//end of new user function
+  });// end of signup click function
 
-// login function
-$("#login").on("click",function(event) {
-  $('#loginmdl').modal('show');
-  $("#glogli").on("click",function(event){
-    console.log("googleclick");
-    auth.signInWithPopup(provider).then(function(result) {
-      var token = result.credential.accessToken;
-      var user = result.user;
-      var name = result.additionalUserInfo.profile.name;
-      document.getElementById(`login`).hidden = true;
-      document.getElementById(`signup`).hidden = true;
-      $("#greeting").html(welcome(name));
+  // login function
+  $("#login").on("click", function (event) {
+    $('#loginmdl').modal('show');
+    $("#glogli").on("click", function (event) {
+      console.log("googleclick");
+      auth.signInWithPopup(provider).then(function (result) {
+        var token = result.credential.accessToken;
+        var user = result.user;
+        var name = result.additionalUserInfo.profile.name;
+        document.getElementById(`login`).hidden = true;
+        document.getElementById(`signup`).hidden = true;
+        $("#greeting").html(welcome(name));
 
-      getUserCalendar();
-    }).catch(function(error) {
-      var errorCode = error.code;
-      var errorMessage = error.message;
-      var email = error.email;
-      var credential = error.credential;
-    }); 
-  }); //end of google login
-  $("#submit1").on("click",function() {
+        getUserCalendar();
+      }).catch(function (error) {
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        var email = error.email;
+        var credential = error.credential;
+      });
+    }); //end of google login
+    $("#submit1").on("click", function () {
       event.preventDefault(event);
       email = $("#login-email").val().trim();
       passWrd = $("#login-pswd").val().trim();
@@ -282,60 +281,67 @@ $("#login").on("click",function(event) {
       }); // end of login function
 });//end of login function
 });// end of login click function
+      auth.signInWithEmailAndPassword(email, passWrd).then(function (cred) {
 
-//signout function
-$("#signout").on("click",function() {
-  event.preventDefault(event);
-  auth.signOut().then(function() {console.log("user logged out");
-  document.getElementById(`login`).hidden = false;
-  document.getElementById(`signup`).hidden = false;
-  $("#greeting").html("");
-  $("#calExpanded").empty();
-});    
 
-});// end of signout click function
+        getUserCalendar();
+      });//end of login function
+    });// end of login click function
 
-//user preferences function for signup
-function userPrefs() {
-  $("#preferences").modal('show');
-  $("#submit2").on("click",function() {
+    //signout function
+    $("#signout").on("click", function () {
       event.preventDefault(event);
-
-
-      var srchParam = [];
-      var param1 = [];
-      var address = $("#defaultAddress").val();
-      srchParam.push($('input[name=radio1]:checked').val());
-      srchParam.push($('input[name=radio2]:checked').val());
-      srchParam.push($('input[name=radio3]:checked').val());
-      srchParam.push($('input[name=radio4]:checked').val());
-      srchParam.push($('input[name=radio5]:checked').val());
-      srchParam.map(function (value, i) {
-        if (value !== undefined) {
-          console.log(value);
-          param1.push(value);
-        }
+      auth.signOut().then(function () {
+        console.log("user logged out");
+        document.getElementById(`login`).hidden = false;
+        document.getElementById(`signup`).hidden = false;
+        $("#greeting").html("");
+        $("#calExpanded").empty();
       });
-      database.ref().push({
-        Address: address,
-        NewsParam: param1
-      });//end firebase save    
-    }); // end of prefernce input function
-  };//end of user preferences function
+
+    });// end of signout click function
+
+    //user preferences function for signup
+    function userPrefs() {
+      $("#preferences").modal('show');
+      $("#submit2").on("click", function () {
+        event.preventDefault(event);
 
 
-//Adding Calendar
-var userEmail;
-var userInput;
-var email;
+        var srchParam = [];
+        var param1 = [];
+        var address = $("#defaultAddress").val();
+        srchParam.push($('input[name=radio1]:checked').val());
+        srchParam.push($('input[name=radio2]:checked').val());
+        srchParam.push($('input[name=radio3]:checked').val());
+        srchParam.push($('input[name=radio4]:checked').val());
+        srchParam.push($('input[name=radio5]:checked').val());
+        srchParam.map(function (value, i) {
+          if (value !== undefined) {
+            console.log(value);
+            param1.push(value);
+          }
+        });
+        database.ref().push({
+          Address: address,
+          NewsParam: param1
+        });//end firebase save    
+      }); // end of prefernce input function
+    };//end of user preferences function
 
-function getUserCalendar() {
 
-  userInput = email.split("@");
+    //Adding Calendar
+    var userEmail;
+    var userInput;
+    var email;
 
-  userEmail = userInput[0];
+    function getUserCalendar() {
 
-    var iframe = `
+      userInput = email.split("@");
+
+      userEmail = userInput[0];
+
+      var iframe = `
     <iframe
       src="https://calendar.google.com/calendar/embed?src=${userEmail}%40gmail.com&ctz=America%2FChicago"
       style="border: 0"
@@ -347,140 +353,138 @@ function getUserCalendar() {
 
     `
 
-    if (userInput.includes("gmail.com")) {
+      if (userInput.includes("gmail.com")) {
 
-      $("#calExpanded").html(iframe);
+        $("#calExpanded").html(iframe);
 
-    }  
-}
-
-// Client ID and API key from the Developer Console
-var CLIENT_ID =
-"861805811444-ou2fkh3vkq7p5irnnb3nnco9c56m742n.apps.googleusercontent.com";
-var API_KEY = "AIzaSyB2o7vTO8IbcRCnIcu9LgJFSyV1iPeFZmY ";
-
-// Array of API discovery doc URLs for APIs used by the quickstart
-var DISCOVERY_DOCS = [
-"https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"
-];
-
-// Authorization scopes required by the API; multiple scopes can be
-// included, separated by spaces.
-var SCOPES = "https://www.googleapis.com/auth/calendar.readonly";
-
-var authorizeButton = document.getElementById("authorize_button");
-var signoutButton = document.getElementById("signout_button");
-
-/**
-*  On load, called to load the auth2 library and API client library.
-*/
-function handleClientLoad() {
-gapi.load("client:auth2", initClient);
-}
-
-/**
-*  Initializes the API client library and sets up sign-in state
-*  listeners.
-*/
-function initClient() {
-gapi.client
-  .init({
-    apiKey: API_KEY,
-    clientId: CLIENT_ID,
-    discoveryDocs: DISCOVERY_DOCS,
-    scope: SCOPES
-  })
-  .then(
-    function() {
-      // Listen for sign-in state changes.
-      gapi.auth2
-        .getAuthInstance()
-        .isSignedIn.listen(updateSigninStatus);
-
-      // Handle the initial sign-in state.
-      updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
-      authorizeButton.onclick = handleAuthClick;
-      signoutButton.onclick = handleSignoutClick;
-    },
-    function(error) {
-      appendPre(JSON.stringify(error, null, 2));
-    }
-  );
-}
-
-/**
-*  Called when the signed in status changes, to update the UI
-*  appropriately. After a sign-in, the API is called.
-*/
-function updateSigninStatus(isSignedIn) {
-if (isSignedIn) {
-  authorizeButton.style.display = "none";
-  signoutButton.style.display = "block";
-  listUpcomingEvents();
-} else {
-  authorizeButton.style.display = "block";
-  signoutButton.style.display = "none";
-}
-}
-
-/**
-*  Sign in the user upon button click.
-*/
-function handleAuthClick(event) {
-gapi.auth2.getAuthInstance().signIn();
-}
-
-/**
-*  Sign out the user upon button click.
-*/
-function handleSignoutClick(event) {
-gapi.auth2.getAuthInstance().signOut();
-}
-
-/**
-* Append a pre element to the body containing the given message
-* as its text node. Used to display the results of the API call.
-*
-* @param {string} message Text to be placed in pre element.
-*/
-function appendPre(message) {
-var pre = document.getElementById("content");
-var textContent = document.createTextNode(message + "\n");
-pre.appendChild(textContent);
-}
-
-/**
-* Print the summary and start datetime/date of the next ten events in
-* the authorized user's calendar. If no events are found an
-* appropriate message is printed.
-*/
-function listUpcomingEvents() {
-gapi.client.calendar.events
-  .list({
-    calendarId: "primary",
-    timeMin: new Date().toISOString(),
-    showDeleted: false,
-    singleEvents: true,
-    maxResults: 10,
-    orderBy: "startTime"
-  })
-  .then(function(response) {
-    var events = response.result.items;
-    appendPre("Upcoming events:");
-
-    if (events.length > 0) {
-      for (i = 0; i < events.length; i++) {
-        var event = events[i];
-        var when = event.start.dateTime;
-        if (!when) {
-          when = event.start.date;
-        }
-        appendPre(event.summary + " (" + when + ")");
       }
-    } else {
-      appendPre("No upcoming events found.");
     }
-  });
-}
 
-});//end of document ready
+    // Client ID and API key from the Developer Console
+    var CLIENT_ID =
+      "861805811444-ou2fkh3vkq7p5irnnb3nnco9c56m742n.apps.googleusercontent.com";
+    var API_KEY = "AIzaSyB2o7vTO8IbcRCnIcu9LgJFSyV1iPeFZmY ";
+
+    // Array of API discovery doc URLs for APIs used by the quickstart
+    var DISCOVERY_DOCS = [
+      "https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"
+    ];
+
+    // Authorization scopes required by the API; multiple scopes can be
+    // included, separated by spaces.
+    var SCOPES = "https://www.googleapis.com/auth/calendar.readonly";
+
+    var authorizeButton = document.getElementById("authorize_button");
+    var signoutButton = document.getElementById("signout_button");
+
+    /**
+    *  On load, called to load the auth2 library and API client library.
+    */
+    function handleClientLoad() {
+      gapi.load("client:auth2", initClient);
+    }
+
+    /**
+    *  Initializes the API client library and sets up sign-in state
+    *  listeners.
+    */
+    function initClient() {
+      gapi.client
+        .init({
+          apiKey: API_KEY,
+          clientId: CLIENT_ID,
+          discoveryDocs: DISCOVERY_DOCS,
+          scope: SCOPES
+        })
+        .then(
+          function () {
+            // Listen for sign-in state changes.
+            gapi.auth2
+              .getAuthInstance()
+              .isSignedIn.listen(updateSigninStatus);
+
+            // Handle the initial sign-in state.
+            updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
+            authorizeButton.onclick = handleAuthClick;
+            signoutButton.onclick = handleSignoutClick;
+          },
+          function (error) {
+            appendPre(JSON.stringify(error, null, 2));
+          }
+        );
+    }
+
+    /**
+    *  Called when the signed in status changes, to update the UI
+    *  appropriately. After a sign-in, the API is called.
+    */
+    function updateSigninStatus(isSignedIn) {
+      if (isSignedIn) {
+        authorizeButton.style.display = "none";
+        signoutButton.style.display = "block";
+        listUpcomingEvents();
+      } else {
+        authorizeButton.style.display = "block";
+        signoutButton.style.display = "none";
+      }
+    }
+
+    /**
+    *  Sign in the user upon button click.
+    */
+    function handleAuthClick(event) {
+      gapi.auth2.getAuthInstance().signIn();
+    }
+
+    /**
+    *  Sign out the user upon button click.
+    */
+    function handleSignoutClick(event) {
+      gapi.auth2.getAuthInstance().signOut();
+    }
+
+    /**
+    * Append a pre element to the body containing the given message
+    * as its text node. Used to display the results of the API call.
+    *
+    * @param {string} message Text to be placed in pre element.
+    */
+    function appendPre(message) {
+      var pre = document.getElementById("content");
+      var textContent = document.createTextNode(message + "\n");
+      pre.appendChild(textContent);
+    }
+
+    /**
+    * Print the summary and start datetime/date of the next ten events in
+    * the authorized user's calendar. If no events are found an
+    * appropriate message is printed.
+    */
+    function listUpcomingEvents() {
+      gapi.client.calendar.events
+        .list({
+          calendarId: "primary",
+          timeMin: new Date().toISOString(),
+          showDeleted: false,
+          singleEvents: true,
+          maxResults: 10,
+          orderBy: "startTime"
+        })
+        .then(function (response) {
+          var events = response.result.items;
+          appendPre("Upcoming events:");
+
+          if (events.length > 0) {
+            for (i = 0; i < events.length; i++) {
+              var event = events[i];
+              var when = event.start.dateTime;
+              if (!when) {
+                when = event.start.date;
+              }
+              appendPre(event.summary + " (" + when + ")");
+            }
+          } else {
+            appendPre("No upcoming events found.");
+          }
+        });
+      }

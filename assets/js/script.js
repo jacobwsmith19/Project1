@@ -10,6 +10,7 @@ $(document).ready(function () {
   var lon;
   var queryURL;
   var currentCity;
+  var userArray =[]; //user login data from google and preferences from firebase
 
   //Getting Geolocation of user
   function getUserLocation() {
@@ -211,17 +212,21 @@ $(document).ready(function () {
     $('#signupm').modal('show');
     $("#glogsu").on("click", function (event) {
       $('#signupm').modal('hide');
-      console.log("googleclick");
       auth.signInWithPopup(provider).then(function (result) {
         var token = result.credential.accessToken;
         var user = result.user;
         var name = result.additionalUserInfo.profile.name;
-        userPrefs();
+        userArray[0] = result.credential.accessToken;
+        userArray[1] = result.credential.idToken;
+        userArray[2] = result.user.email;
         document.getElementById(`login`).hidden = true;
         document.getElementById(`signup`).hidden = true;
-        $("#greeting").html(welcome(name));
-
-        getUserCalendar();
+        $("#greeting").html(welcome(name)); 
+        email = userArray[2];
+        userArray[3] = firebase.auth().currentUser.uid;
+        userPrefs(email,userArray[3]);
+        console.log(userArray);
+        getUserCalendar(email,userArray[0]);
       }).catch(function (error) {
         var errorCode = error.code;
         var errorMessage = error.message;
@@ -235,12 +240,12 @@ $(document).ready(function () {
       email = $("#signup-email").val().trim();
       passWrd = $("#signup-pswd").val().trim();
       auth.createUserWithEmailAndPassword(email, passWrd).then(function (cred) {
-        userPrefs();
+        userArray[3] = firebase.auth().currentUser.uid;
+        userArray[2] = email;
+        userPrefs(email,userArray[3]);
         document.getElementById(`login`).hidden = true;
-        document.getElementById(`signup`).hidden = true;
+        document.getElementById(`signup`).hidden = true; 
         $("#greeting").html(welcome(email));
-
-        getUserCalendar();
       });// end of authentication to firebase  
     });//end of new user function
   });// end of signup click function
@@ -252,13 +257,17 @@ $(document).ready(function () {
       console.log("googleclick");
       auth.signInWithPopup(provider).then(function (result) {
         var token = result.credential.accessToken;
-        var user = result.user;
-        var name = result.additionalUserInfo.profile.name;
-        document.getElementById(`login`).hidden = true;
-        document.getElementById(`signup`).hidden = true;
-        $("#greeting").html(welcome(name));
-
-        getUserCalendar();
+      var user = result.user;
+      var name = result.additionalUserInfo.profile.name;
+      userArray[0] = result.credential.accessToken;
+      userArray[1] = result.credential.idToken;
+      userArray[2] = result.user.email;
+      document.getElementById(`login`).hidden = true;
+      document.getElementById(`signup`).hidden = true;
+      $("#greeting").html(welcome(name));
+      email = userArray[2];
+      userArray[3] = firebase.auth().currentUser.uid;
+      getUserCalendar(email,userArray[0]);
       }).catch(function (error) {
         var errorCode = error.code;
         var errorMessage = error.message;
@@ -271,34 +280,30 @@ $(document).ready(function () {
       email = $("#login-email").val().trim();
       passWrd = $("#login-pswd").val().trim();
       auth.signInWithEmailAndPassword(email,passWrd).then(function(cred){
-
-        console.log("user logged in");// shows user credential returned from firebase
-          document.getElementById(`login`).hidden = true;
-          document.getElementById(`signup`).hidden = true;
-          $("#greeting").html(welcome(email)); 
-          
-          getUserCalendar();
+        document.getElementById(`login`).hidden = true;
+        document.getElementById(`signup`).hidden = true;
+        $("#greeting").html(welcome(email)); 
+        userArray[2] = email;
+        userArray[3] = firebase.auth().currentUser.uid;
       }); // end of login function
 });//end of login function
 });// end of login click function
-      auth.signInWithEmailAndPassword(email, passWrd).then(function (cred) {
-
-
-        getUserCalendar();
-      });//end of login function
-    });// end of login click function
 
     //signout function
     $("#signout").on("click", function () {
       event.preventDefault(event);
-      auth.signOut().then(function () {
-        console.log("user logged out");
-        document.getElementById(`login`).hidden = false;
-        document.getElementById(`signup`).hidden = false;
-        $("#greeting").html("");
-        $("#calExpanded").empty();
-      });
-
+  auth.signOut().then(function() {console.log("user logged out");
+    document.getElementById(`login`).hidden = false;
+    document.getElementById(`signup`).hidden = false;
+    userArray = [];
+    $("#greeting").html("");
+    $("#carouselCal").html(function() {return `<img src="./assets/images/clear.jpg" alt="simpleNews" width="100%">
+      <div class="carousel-caption d-none d-md-block">
+      <h5>Calendar</h5>
+     <p id=calSum>Your calendar will appear when you login with a google login</p>
+    `});
+    $("#calExpanded").html(function() {return `<span id="placeholderText">Once you login, your calendar will appear here</span>`});
+    });    
     });// end of signout click function
 
     //user preferences function for signup
@@ -306,10 +311,9 @@ $(document).ready(function () {
       $("#preferences").modal('show');
       $("#submit2").on("click", function () {
         event.preventDefault(event);
-
-
         var srchParam = [];
         var param1 = [];
+        var defaultCity = $("#city").val();
         var address = $("#defaultAddress").val();
         srchParam.push($('input[name=radio1]:checked').val());
         srchParam.push($('input[name=radio2]:checked').val());
@@ -319,12 +323,14 @@ $(document).ready(function () {
         srchParam.map(function (value, i) {
           if (value !== undefined) {
             console.log(value);
-            param1.push(value);
+           param1.push(value);
           }
-        });
-        database.ref().push({
-          Address: address,
-          NewsParam: param1
+       });
+      database.ref('users/' + uid).set({
+        Email: email,
+        City: defaultCity,
+        Address: address,
+        NewsParam: param1
         });//end firebase save    
       }); // end of prefernce input function
     };//end of user preferences function
@@ -335,7 +341,7 @@ $(document).ready(function () {
     var userInput;
     var email;
 
-    function getUserCalendar() {
+    function getUserCalendar(email,gToken) {
 
       userInput = email.split("@");
 
@@ -356,6 +362,7 @@ $(document).ready(function () {
       if (userInput.includes("gmail.com")) {
 
         $("#calExpanded").html(iframe);
+        $("#carouselCal").html(iframe);
 
       }
     }
@@ -487,4 +494,5 @@ $(document).ready(function () {
             appendPre("No upcoming events found.");
           }
         });
-      }
+      } 
+    });//end of document ready

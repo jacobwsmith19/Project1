@@ -12,7 +12,8 @@ $(document).ready(function () {
   var currentCity;
   var userArray =[]; //user login data from google and preferences from firebase
 
-  //Getting Geolocation of user
+
+  // Getting Geolocation of user
   function getUserLocation() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(showUserPosition);
@@ -21,13 +22,21 @@ $(document).ready(function () {
 
   //Once the user clicks "Allow", lat and lon will be defined and queryURL for Weather will be created.
   function showUserPosition(position) {
+    
     lat = position.coords.latitude;
     lon = position.coords.longitude;
+
     queryURL = "https://api.openweathermap.org/data/2.5/weather?appid=166a433c57516f51dfab1f7edaed8413&units=imperial&lat=" + lat + "&lon=" + lon;
 
     //Then, the page will run an AJAX request to the Weather API and return the results.
     getWeatherData();
+    $("#trafficSum").empty();
   }
+
+
+getUserLocation();
+
+
 
   //The user can also choose to input the city name manually. In this case a new queryURL will be created.
   $("#search").on("click", function () {
@@ -38,10 +47,12 @@ $(document).ready(function () {
     var city = $("input").val().toLowerCase();
     queryURL = "https://api.openweathermap.org/data/2.5/weather?appid=166a433c57516f51dfab1f7edaed8413&units=imperial&q=" + city;
 
+    $("input").val(" ");
     //Then, the page will run an AJAX request to the Weather API and return the results.
     getWeatherData();
+    $("#trafficSum").empty();
+    
   })
-
 
 
   //AJAX request to get data from the Weather API.
@@ -50,75 +61,77 @@ $(document).ready(function () {
       url: queryURL,
       method: "GET"
     }).then(function (response) {
-      var sunrise = moment.unix(response.sys.sunrise).format("hh:mm A");
-      var sunset = moment.unix(response.sys.sunset).format("hh:mm A");
-      var weatherForecastResponse = response.weather[0].main.toLowerCase();
 
-      if (weatherForecastResponse === "clear") {
-        weatherForecast = `
-          <p>Today's skies look ${weatherForecastResponse}</p>
-          `
-      } else {
-        weatherForecast = `
-          <p>Be prepared for ${weatherForecastResponse}.</p>
-          `
-      }
-      //Detailed view of the weather
-      var weatherText = `
-   <div>
-   <p>You're in ${response.name}, ${response.sys.country}!</p>
-   <p>Today, the sun will rise at ${sunrise} and set at ${sunset}.</p>
-   <p>Wind speed is ${response.wind.speed}mph.</p>
-   <p>Right now, the temperature is ${response.main.temp} F.</p>
-   <p>The minimum for today is ${response.main.temp_min} F and the maximum is ${response.main.temp_max} F.</p>
-   <p>Humidity is: ${response.main.humidity}%</p>
-   ${weatherForecast}
-   </div>
-   `
-
-
-      //Appends weather text to the body
-      $("#weatherFull").html(weatherText);
-
-
-      //City displayed on page 
-      var summaryText =
-        ` <h3>
-   Here's a summary for today in: ${response.name}
-   </h3> `
-      $("#summaryText").html(summaryText)
-
-
-      //Summary text of the weather 
-
-      var weatherSum = `
-   <div>
-
-   <h2> The temperature is ${response.main.temp} F
-   ${weatherForecast} <h2>
-   </div>`
-      //Replaces the default text and writes the summary to the Carousel
-      $("#weatherSum").html(weatherSum)
-
-
-      var weatherImg =
-        `<img src="./assets/images/${weatherForecastResponse}.jpg" alt="Weather" width="100%" height="750px">`
-
-      $("#wimg").html(weatherImg)
-      console.log(weatherForecastResponse)
-
-
-
-      /////////////////////////////////////////NEWS///////////////////////////////////////////////////////////////////////////
-
-
-      //
-      currentCity = response.name;
-      generateNews();
+        var sunrise = moment.unix(response.sys.sunrise).format("hh:mm A");
+        var sunset = moment.unix(response.sys.sunset).format("hh:mm A");
+        var weatherForecastResponse = response.weather[0].main.toLowerCase();
+  
+        if (weatherForecastResponse === "clear") {
+          weatherForecast = `
+            <p>Today's skies look ${weatherForecastResponse}</p>
+            `
+        } else {
+          weatherForecast = `
+            <p>Be prepared for ${weatherForecastResponse}.</p>
+            `
+        }
+        //Detailed view of the weather
+        var weatherText = `
+     <div>
+     <p>You're in ${response.name}, ${response.sys.country}!</p>
+     <p>Today, the sun will rise at ${sunrise} and set at ${sunset}.</p>
+     <p>Wind speed is ${response.wind.speed}mph.</p>
+     <p>Right now, the temperature is ${response.main.temp} F.</p>
+     <p>The minimum for today is ${response.main.temp_min} F and the maximum is ${response.main.temp_max} F.</p>
+     <p>Humidity is: ${response.main.humidity}%</p>
+     ${weatherForecast}
+     </div>
+     `
+  
+  
+        //Appends weather text to the body
+        $("#weatherFull").html(weatherText);
+  
+  
+        //City displayed on page 
+        var summaryText =
+          ` <h3>
+     Here's a summary for today in: ${response.name}
+     </h3> `
+        $("#summaryText").html(summaryText)
+  
+  
+        //Summary text of the weather 
+  
+        var weatherSum = `
+     <div>
+  
+     <h2> The temperature is ${response.main.temp} F
+     ${weatherForecast} <h2>
+     </div>`
+        //Replaces the default text and writes the summary to the Carousel
+        $("#weatherSum").html(weatherSum)
+  
+  
+        var weatherImg =
+          `<img src="./assets/images/${weatherForecastResponse}.jpg" alt="Weather" width="100%" height="750px">`
+  
+        $("#wimg").html(weatherImg)
+        console.log(weatherForecastResponse)
+  
+  
+  
+        /////////////////////////////////////////NEWS///////////////////////////////////////////////////////////////////////////
+  
+  
+        //
+        currentCity = response.name;
+        generateNews();
+      
     });
   }
 
-  getUserLocation();
+  // getUserLocation();
 
   // Generates 3 headlines using the geo location city name as a keyword
   function generateNews() {
@@ -164,13 +177,13 @@ $(document).ready(function () {
           <br>
           Or scroll down to see more articles
           `
-        $("#newsSum").html(newsSum)
+        $("#newsSum").html(newsSum);
 
 
 
         var headline = article.headline;
 
-        var $articleListItem = $("<li class='list-group-item articleHeadline'>");
+        var $articleListItem = $("<li class='list-group-item articleHeadline' style='background-color:#002080;color:#ccd9ff;'>");
 
         if (headline && headline.main) {
           $articleListItem.append(
